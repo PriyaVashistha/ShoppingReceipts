@@ -10,17 +10,18 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./shoppingBasket.css']
 })
 
+/**
+   * Sets shopping basket input data and processes it to produce final output
+    */
 export class ShoppingBasketComponent {
   title = 'Receipt Details from Shopping Carts';
   errorEncountered = false;
   errorMessage = '';
-  //shoppingBaseketObs wraps the input data
-  shoppingBaseketObs: Observable<IShoppingBasket> = from(shoppingBaskets);//shoppingBaskets is initialized below with input data
 
-  //processes input shopping basket data to final shopping basket receipts
+  shoppingBaseketObs: Observable<IShoppingBasket> = from(shoppingBaskets);
+
   shoppingBasketReceiptObs = this.shoppingBaseketObs
               .pipe(map((shoppingBasket, index) => {
-                //GenerateShoppingBasketReceipt adds tax and duty details and returns final receipts
                 return this.GenerateShoppingBasketReceipt(shoppingBasket.items, index);
               }));
 
@@ -40,45 +41,62 @@ export class ShoppingBasketComponent {
     );
   }
 
-  //Process shopping basket items and applies tax information
+  /**
+   * Process shopping basket items and applies tax information
+   * @param items list of input shopping basket items
+   * @param basketIndex represents basket index
+   * @returns final receipt - shopping basket information with tax and duty
+    */
   GenerateShoppingBasketReceipt(items: IItemInput[], basketIndex: number) : IReceipt {
     let totalTax = 0.00;
     let totalPrice = 0.00;
     let itemsWithTax = items.map(item => {
-      let tax = this.GetBaseTax(item.isExemptFromTax, item.price); //GetBaseTax calculates tax if applicable
-      let duty = this.GetImportDuty(item.isImported, item.price); //GetImportDuty calculates import duty if applicable
+      let tax = this.GetBaseTax(item.isExemptFromTax, item.price);
+      let duty = this.GetImportDuty(item.isImported, item.price);
       let data = {
           name: item.name,
           price: item.price,
           basicSalesTax: tax,
           importDuty: duty,
-          priceWithTax: item.price + tax + duty // final item price is the item price after tax and import duty
+          priceWithTax: item.price + tax + duty
         } as IItemWithTax;
-        totalTax += tax + duty; //total taxes (tax + duty) for all items in the shopping basket
-        totalPrice += data.priceWithTax; //total price with taxes for all items in the shopping basket
+        totalTax += tax + duty;
+        totalPrice += data.priceWithTax;
         return data;
     });
     return {
-      id: basketIndex + 1, //shopping basket id/number
-      items: itemsWithTax, //collection of shopping basket items with tax informatiopn
-      totalPrice: totalPrice, //total price with tax for the shopping basket
-      totalTax: totalTax //total taxes applied to the shopping price
+      id: basketIndex + 1,
+      items: itemsWithTax,
+      totalPrice: totalPrice,
+      totalTax: totalTax 
     }as IReceipt
   }
 
+   /**
+   * Calculates applicable sales tax
+   * @param isExempt true if item is exempt from tax
+   * @param price base item price before tax
+   * @returns 0.00 if exempt, otherwise returns the calculated tax value
+    */
   GetBaseTax(isExempt: boolean, price:number): number {
-    //Only calculate tax if applicable
     return isExempt ? 0.00 : Util.CalculateBasicSalesTax(price);
   }
 
+  /**
+   * Calculates applicable import duty
+   * @param isImported true if item is imported
+   * @param price base item price before tax
+   * @returns 0.00 if item is not imported, otherwise returns the calculated duty value
+    */
   GetImportDuty(isImported: boolean, price:number): number {
-    //Only calculate import duty if applicable
     return isImported ? Util.CalculateImportDuty(price) : 0.00;
   }
 
 }
 
-//Create object with input shopping basket data
+/**
+   * Create object with input shopping basket data
+    */
 const shoppingBaskets: Array<IShoppingBasket> = [
   {
     id: 1,
