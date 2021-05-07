@@ -22,7 +22,7 @@ export class ShoppingBasketComponent {
 
   shoppingBasketReceiptObs = this.shoppingBaseketObs
               .pipe(map((shoppingBasket, index) => {
-                return this.GenerateShoppingBasketReceipt(shoppingBasket.items, index);
+                return this.GenerateShoppingBasketReceipt(shoppingBasket.items, shoppingBasket.id);
               }));
 
   //stores final output information
@@ -44,10 +44,10 @@ export class ShoppingBasketComponent {
   /**
    * Process shopping basket items and applies tax information
    * @param items list of input shopping basket items
-   * @param basketIndex represents basket index
+   * @param basketId basket id
    * @returns final receipt - shopping basket information with tax and duty
     */
-  GenerateShoppingBasketReceipt(items: IItemInput[], basketIndex: number) : IReceipt {
+  GenerateShoppingBasketReceipt(items: IItemInput[], basketId: number) : IReceipt {
     let totalTax = 0.00;
     let totalPrice = 0.00;
     let itemsWithTax = items.map(item => {
@@ -65,7 +65,7 @@ export class ShoppingBasketComponent {
         return data;
     });
     return {
-      id: basketIndex + 1,
+      id: basketId,
       items: itemsWithTax,
       totalPrice: totalPrice,
       totalTax: totalTax 

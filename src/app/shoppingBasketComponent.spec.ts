@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ShoppingBasketComponent } from './shoppingBasketComponent';
-import { IItemInput } from './shoppingBasketInterface';
+import { IItemInput, IShoppingBasket } from './shoppingBasketInterface';
 
 describe('ShoppingBasketComponent', () => {
   beforeEach(async () => {
@@ -60,13 +60,13 @@ describe('ShoppingBasketComponent', () => {
     it('GetBaseTax is called to set base tax', () => {
       shoppingItem.isExemptFromTax = false;
       shoppingItem.price = 10.00;
-      let shoppingBasket = [
+      let shoppingBasketItems = [
         shoppingItem
       ] as Array<IItemInput>;
   
       const getBaseTaxSpy = spyOn(instance, 'GetBaseTax').and.returnValue(1.00);
 
-      let resultItemWithTax = instance.GenerateShoppingBasketReceipt(shoppingBasket, 1).items[0];
+      let resultItemWithTax = instance.GenerateShoppingBasketReceipt(shoppingBasketItems, 1).items[0];
       expect(getBaseTaxSpy).toHaveBeenCalledWith(false, 10.00);
       expect(resultItemWithTax.basicSalesTax).toBe(1.00);
     });
@@ -74,13 +74,13 @@ describe('ShoppingBasketComponent', () => {
     it('GetImportDuty is called to set the import duty ', () => {
       shoppingItem.isImported = true;
       shoppingItem.price = 10.00;
-      let shoppingBasket = [
+      let shoppingBasketItems = [
         shoppingItem
       ] as Array<IItemInput>;
 
       const getImportDutySpy = spyOn(instance, 'GetImportDuty').and.returnValue(1.00);
 
-      let resultItemWithTax = instance.GenerateShoppingBasketReceipt(shoppingBasket, 1).items[0];
+      let resultItemWithTax = instance.GenerateShoppingBasketReceipt(shoppingBasketItems, 1).items[0];
       expect(getImportDutySpy).toHaveBeenCalledWith(true, 10.00);
       expect(resultItemWithTax.importDuty).toBe(1.00);
     });
@@ -88,7 +88,7 @@ describe('ShoppingBasketComponent', () => {
     it('total tax is the sum of tax and duty', () => {
       shoppingItem.isExemptFromTax = false;
       shoppingItem.price = 10.00;
-      let shoppingBasket = [
+      let shoppingBasketItems = [
         shoppingItem
       ] as Array<IItemInput>;
 
@@ -99,14 +99,14 @@ describe('ShoppingBasketComponent', () => {
       const getBaseTaxSpy = spyOn(instance, 'GetBaseTax').and.returnValue(tax);
       const getImportDutySpy = spyOn(instance, 'GetImportDuty').and.returnValue(duty);
 
-      let result = instance.GenerateShoppingBasketReceipt(shoppingBasket, 1);
+      let result = instance.GenerateShoppingBasketReceipt(shoppingBasketItems, 1);
       expect(result.totalTax).toBe(expectedTotalTax);
     });
 
     it('total price is the sum of item price, tax and duty', () => {
       shoppingItem.isExemptFromTax = false;
       shoppingItem.price = 10.00;
-      let shoppingBasket = [
+      let shoppingBasketItems = [
         shoppingItem
       ] as Array<IItemInput>;
 
@@ -117,7 +117,7 @@ describe('ShoppingBasketComponent', () => {
       const getBaseTaxSpy = spyOn(instance, 'GetBaseTax').and.returnValue(tax);
       const getImportDutySpy = spyOn(instance, 'GetImportDuty').and.returnValue(duty);
 
-      let result = instance.GenerateShoppingBasketReceipt(shoppingBasket, 1);
+      let result = instance.GenerateShoppingBasketReceipt(shoppingBasketItems, 1);
       expect(result.totalPrice).toBe(expectedTotalPrice);
     });
 
@@ -130,10 +130,13 @@ describe('ShoppingBasketComponent', () => {
             isExemptFromTax: true,
             isImported: true
           } as IItemInput;
-      let shoppingBasket = [
+      let shoppingBasket = {
+        id: 1,
+        items: [
         shoppingItem,
         shoppingItem2
-      ] as Array<IItemInput>;
+        ]
+      } as IShoppingBasket;
 
       const tax = 1.00;
       const duty = 1.00;
@@ -143,7 +146,7 @@ describe('ShoppingBasketComponent', () => {
       const getBaseTaxSpy = spyOn(instance, 'GetBaseTax').and.returnValue(tax);
       const getImportDutySpy = spyOn(instance, 'GetImportDuty').and.returnValue(duty);
 
-      let result = instance.GenerateShoppingBasketReceipt(shoppingBasket, 1);
+      let result = instance.GenerateShoppingBasketReceipt(shoppingBasket.items, shoppingBasket.id);
       expect(result.items.length).toBe(2);
       let item1Receipt = result.items[0];
       let item2Receipt = result.items[1];
@@ -153,7 +156,7 @@ describe('ShoppingBasketComponent', () => {
       expect(item2Receipt.price).toBe(shoppingItem2.price);
       expect(result.totalPrice).toBe(expectedItem1PriceWithTax + expectedItem2PriceWithTax);
       expect(result.totalTax).toBe(4);
-      expect(result.id).toBe(2);
+      expect(result.id).toBe(shoppingBasket.id);
     });
   
   });
