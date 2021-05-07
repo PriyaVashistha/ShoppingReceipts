@@ -32,9 +32,9 @@ Once Node and Angular CLI are installed, navigate to the project directory in co
 ## Output format
 In the output displayed, each shopping basket consists of 5 columns
 * ***Name*** - Item name information from input
-* ***Base Price*** - Item Price information from input
+* ***Base Price*** - Item price information from input
 * ***Sales Tax*** - Applicable tax based on base price. Displays "Exempt" for items that are exempt from tax.
-* ***Import Duty*** - Applicable Import duty based on base price. Displays "Exempt" for items exempt form import duty.
+* ***Import Duty*** - Applicable Import duty on base price. Displays "Exempt" for items exempt form import duty.
 * ***Price with tax*** - Displays final price of the item with tax.
 
 Last two rows of each shopping basket are **Sales Tax** and **Total**. 
