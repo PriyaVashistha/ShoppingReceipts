@@ -16,24 +16,24 @@
           </tr>
           <tr *ngFor = "let item of receipt.items">
                 <td>{{item.name}}</td>
-                <td class="alignRight">{{(item.price).toFixed(2)}}</td>
-                <td class="alignRight">{{item.basicSalesTax == 0 ? "Exempt" : (item.basicSalesTax).toFixed(2)}}</td>
-                <td class="alignRight">{{item.importDuty == 0 ? "Exempt" : (item.importDuty).toFixed(2)}}</td>
-                <td class="alignRight">{{(item.priceWithTax).toFixed(2)}}</td>
+                <td class="_alignRight">{{(item.price).toFixed(2)}}</td>
+                <td class="_alignRight">{{item.basicSalesTax == 0 ? "Exempt" : (item.basicSalesTax).toFixed(2)}}</td>
+                <td class="_alignRight">{{item.importDuty == 0 ? "Exempt" : (item.importDuty).toFixed(2)}}</td>
+                <td class="_alignRight">{{(item.priceWithTax).toFixed(2)}}</td>
           </tr>
           <tr>
             <td><b>Sales Tax</b></td>
             <td></td>
             <td></td>
             <td></td>
-            <td class="alignRight"><b>${{(receipt.totalTax).toFixed(2)}}</b></td>
+            <td class="_alignRight"><b>${{(receipt.totalTax).toFixed(2)}}</b></td>
           </tr>
           <tr>
             <td><b>Total</b></td>
             <td></td>
             <td></td>
             <td></td>
-            <td class="alignRight"><b>${{(receipt.totalPrice).toFixed(2)}}</b></td>
+            <td class="_alignRight"><b>${{(receipt.totalPrice).toFixed(2)}}</b></td>
           </tr>
           
         </table>
