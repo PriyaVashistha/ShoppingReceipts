@@ -22,7 +22,7 @@ Main code files are located in src/app directory
 
 ## Running the project and tests
 * Install node from https://nodejs.org/en/download/
-* To install Angular CLI, open Command Prompt and run `npm install -g @angular/cli`.
+* After Node is installed, install Angular CLI - open Command Prompt and run `npm install -g @angular/cli`.
 
 Once Node and Angular CLI are installed, navigate to the project directory in command line.
 * Run `npm install`, this will install all project dependencies.
