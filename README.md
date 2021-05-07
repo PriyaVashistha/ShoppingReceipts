@@ -1,6 +1,8 @@
 # ReceiptDetails
 
-This project generates receipts from predefined shopping data. 
+This project generates receipts from predefined shopping data. Angular, RxJS and Typescript have been used to implement the solution. 
+
+***It is assumed that the application does not take any user input, the input will always be the shopping baskets given in the exercise document.***
 
 ## What I used to build this project
 * Windows machine
@@ -19,9 +21,13 @@ Main code files are located in src/app directory
 * ***taxUtil.spec.ts*** - Unit tests for taxUtil.ts.
 
 ## Running the project and tests
-Navigate to the project directory via command line.
-Run `ng-serve` and navigate to `http://localhost:4200/` in browser.
-Run `ng-test` to run unit tests.
+* Install node from https://nodejs.org/en/download/
+* To install Angular CLI, open Command Prompt and run `npm install -g @angular/cli`.
+
+Once Node and Angular CLI are installed, navigate to the project directory in command line.
+* Run `npm install`, this will install all project dependencies.
+* To run the application - run `ng-serve` and navigate to `http://localhost:4200/` in browser. The output should now be visible in the browser window.
+* To execute unit tests - run `ng-test`.
 
 ## Output format
 In the output displayed, each shopping basket consists of 5 columns
