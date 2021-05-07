@@ -1,9 +1,12 @@
 <div class="_shoppingCart">
-  <div>
+  <div class="_borderStyling">
     <div class="_header">
       <span><h2>{{title}}</h2></span>
     </div>
     <div class="_shoppingContent">
+      <div *ngIf="errorEncountered">
+        <h3 class="_basketHeader">{{errorMessage}}</h3>
+      </div>
       <div class="_singleBasket" *ngFor="let receipt of shoppingBasketReceipts">
         <h3 class="_basketHeader">Shopping Basket {{receipt.id}} Receipt</h3>
         <table>

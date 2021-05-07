@@ -11,7 +11,9 @@ import { map } from 'rxjs/operators';
 })
 
 export class ShoppingBasketComponent {
-  title = 'Receipt Details from Shopping Carts';  
+  title = 'Receipt Details from Shopping Carts';
+  errorEncountered = false;
+  errorMessage = '';
   //shoppingBaseketObs wraps the input data
   shoppingBaseketObs: Observable<IShoppingBasket> = from(shoppingBaskets);//shoppingBaskets is initialized below with input data
 
@@ -30,6 +32,10 @@ export class ShoppingBasketComponent {
     this.shoppingBasketReceiptObs.subscribe(
       val => {
         this.shoppingBasketReceipts.push(val);
+      },
+      err => { 
+        this.errorEncountered = true;
+        this.errorMessage = err;
       }
     );
   }

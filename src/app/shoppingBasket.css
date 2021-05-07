@@ -1,6 +1,14 @@
 :root{
     background-image: linear-gradient(white, #dddd);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+}
+
+._borderStyling {
+    border-width: 0 2px 2px 2px;
+    border-color: #1976d294;
+    border-style: solid;
+    padding-bottom: 5px;
 }
 
 ._shoppingCart{
