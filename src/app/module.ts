@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from './routing.module';
+import { ShoppingBasketComponent } from './shoppingBasketComponent';
 
 @NgModule({
   declarations: [
-    AppComponent
+    ShoppingBasketComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ShoppingBasketComponent]
 })
 export class AppModule { }

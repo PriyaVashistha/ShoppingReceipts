@@ -1,0 +1,45 @@
+<div class="_shoppingCart">
+  <div>
+    <div class="_header">
+      <span><h2>{{title}}</h2></span>
+    </div>
+    <div class="_shoppingContent">
+      <div class="_singleBasket" *ngFor="let receipt of shoppingBasketReceipts">
+        <h3 class="_basketHeader">Shopping Basket {{receipt.id}} Receipt</h3>
+        <table>
+          <tr>
+            <th class="_name">Name</th>
+            <th class="_data">Base Price</th>
+            <th class="_data">Sales Tax</th>
+            <th class="_data">Import Duty</th>
+            <th class="_data">Price with tax</th>
+          </tr>
+          <tr *ngFor = "let item of receipt.items">
+                <td>{{item.name}}</td>
+                <td class="alignRight">{{(item.price).toFixed(2)}}</td>
+                <td class="alignRight">{{item.basicSalesTax == 0 ? "Exempt" : (item.basicSalesTax).toFixed(2)}}</td>
+                <td class="alignRight">{{item.importDuty == 0 ? "Exempt" : (item.importDuty).toFixed(2)}}</td>
+                <td class="alignRight">{{(item.priceWithTax).toFixed(2)}}</td>
+          </tr>
+          <tr>
+            <td><b>Sales Tax</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="alignRight"><b>${{(receipt.totalTax).toFixed(2)}}</b></td>
+          </tr>
+          <tr>
+            <td><b>Total</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="alignRight"><b>${{(receipt.totalPrice).toFixed(2)}}</b></td>
+          </tr>
+          
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
