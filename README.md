@@ -1,27 +1,36 @@
 # ReceiptDetails
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
+This project generates receipts from predefined shopping data. 
 
-## Development server
+## What I used to build this project
+* Windows machine
+* Visual Studio Code - v1.56.0
+* Node - v14.16.1
+* Angular CLI - v11.2.11
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Code Files
+Main code files are located in src/app directory
+* ***shoppingBasketComponent.ts*** - Contains the ShoppingBasketComponent class that creates input object and  has logic to manipulate input to generate final shopping basket receipts.
+* ***shoppingBasketComponent.spec.ts*** - Contains unit tests for shoppingBasketComponent.ts
+* ***shoppingBasketInterface.ts*** - User defined interfaces needed to structure data are declared here.
+* ***shoppingBasket.html*** - Contains code to display shopping basket data.
+* ***shoppingBasket.css*** - Contains styles used to display data.
+* ***taxUtil.ts*** - Contains tax calculation and rounding functions.
+* ***taxUtil.spec.ts*** - Unit tests for taxUtil.ts.
 
-## Code scaffolding
+## Running the project and tests
+Navigate to the project directory via command line.
+Run `ng-serve` and navigate to `http://localhost:4200/` in browser.
+Run `ng-test` to run unit tests.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Output format
+In the output displayed, each shopping basket consists of 5 columns
+* ***Name*** - Item name information from input
+* ***Base Price*** - Item Price information from input
+* ***Sales Tax*** - Applicable tax based on base price. Displays "Exempt" for items that are exempt from tax.
+* ***Import Duty*** - Applicable Import duty based on base price. Displays "Exempt" for items exempt form import duty.
+* ***Price with tax*** - Displays final price of the item with tax.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Last two rows of each shopping basket are **Sales Tax** and **Total**. 
+* ***Sales Tax***  - Sum of total taxes for all items in the shopping basket
+* ***Total*** - Final price incuding tax of all items in the shopping basket.
