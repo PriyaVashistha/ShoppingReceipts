@@ -1,27 +1,42 @@
 # ReceiptDetails
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.
+This project generates receipts from predefined shopping data. Angular, RxJS and Typescript have been used to implement the solution. 
 
-## Development server
+***It is assumed that the application does not take any user input, the input will always be the shopping baskets given in the exercise document.***
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## What I used to build this project
+* Windows machine
+* Visual Studio Code - v1.56.0
+* Node - v14.16.1
+* Angular CLI - v11.2.11
 
-## Code scaffolding
+## Code Files
+Main code files are located in src/app directory
+* ***shoppingBasketComponent.ts*** - Contains the ShoppingBasketComponent class that creates input object and  has logic to manipulate input to generate final shopping basket receipts.
+* ***shoppingBasketComponent.spec.ts*** - Contains unit tests for shoppingBasketComponent.ts
+* ***shoppingBasketInterface.ts*** - User defined interfaces needed to structure data are declared here.
+* ***shoppingBasket.html*** - Contains code to display shopping basket data.
+* ***shoppingBasket.css*** - Contains styles used to display data.
+* ***taxUtil.ts*** - Contains tax calculation and rounding functions.
+* ***taxUtil.spec.ts*** - Unit tests for taxUtil.ts.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Running the project and tests
+* Install node from https://nodejs.org/en/download/
+* To install Angular CLI, open Command Prompt and run `npm install -g @angular/cli`.
 
-## Build
+Once Node and Angular CLI are installed, navigate to the project directory in command line.
+* Run `npm install`, this will install all project dependencies.
+* To run the application - run `ng-serve` and navigate to `http://localhost:4200/` in browser. The output should now be visible in the browser window.
+* To execute unit tests - run `ng-test`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Output format
+In the output displayed, each shopping basket consists of 5 columns
+* ***Name*** - Item name information from input
+* ***Base Price*** - Item Price information from input
+* ***Sales Tax*** - Applicable tax based on base price. Displays "Exempt" for items that are exempt from tax.
+* ***Import Duty*** - Applicable Import duty based on base price. Displays "Exempt" for items exempt form import duty.
+* ***Price with tax*** - Displays final price of the item with tax.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Last two rows of each shopping basket are **Sales Tax** and **Total**. 
+* ***Sales Tax***  - Sum of total taxes for all items in the shopping basket
+* ***Total*** - Final price incuding tax of all items in the shopping basket.
